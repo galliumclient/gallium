@@ -11,10 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Baskervville:ital,wght@1,400..600&display=swap" rel="stylesheet" />
   <style>
-/* ============================================================
-   Gallium — base styles: tokens, header, buttons, auth pages,
-   policies overlay, toasts. Shared by all pages.
-   ============================================================ */
+
 :root {
   --bg: #0a0f1e;
   --accent: #6687f7;
@@ -52,12 +49,24 @@ button { font-family: inherit; border: 0; background: none; color: inherit; curs
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
 
+
+body, body * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, textarea, [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+input::selection, textarea::selection { background: rgba(102, 135, 247, 0.45); color: #fff; }
+
 .serif { font-family: 'Baskervville', serif; font-style: italic; color: var(--accent); }
 
 .ic { display: inline-flex; flex: none; align-items: center; justify-content: center; vertical-align: middle; }
 .ic svg { width: 100%; height: 100%; display: block; }
 
-/* ---------------- buttons ---------------- */
+
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 7px;
   background: var(--accent);
@@ -93,7 +102,7 @@ img { display: block; max-width: 100%; }
   backdrop-filter: blur(100px); -webkit-backdrop-filter: blur(100px);
 }
 
-/* ---------------- header ---------------- */
+
 .site-header {
   position: fixed; left: 50%; transform: translateX(-50%); top: 23px;
   height: 57px; z-index: 120;
@@ -140,7 +149,7 @@ img { display: block; max-width: 100%; }
 .site-header .cab-btn:hover { filter: brightness(1.07); }
 .site-header .cab-btn .ic { width: 13px; height: 13px; }
 
-/* ---------------- language switch ---------------- */
+
 .lang-btn {
   position: relative;
   display: flex; align-items: center; gap: 2px;
@@ -178,7 +187,7 @@ img { display: block; max-width: 100%; }
 .lang-btn button:active { transform: scale(.9); transition-duration: .07s; }
 .lang-btn button.active { color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35); }
 
-/* ---------------- reveal / toast ---------------- */
+
 .reveal { opacity: 0; transform: translateY(26px); }
 .reveal.in { animation: dxfade .7s cubic-bezier(.2, .7, .2, 1) forwards; }
 @keyframes dxfade { to { opacity: 1; transform: translateY(0); } }
@@ -203,7 +212,7 @@ img { display: block; max-width: 100%; }
   to { opacity: 0; transform: translateX(34px) scale(.95); }
 }
 
-/* ---------------- page / overlay transitions ---------------- */
+
 .view { animation: dxViewIn .48s cubic-bezier(.2, .8, .2, 1) backwards; }
 @keyframes dxViewIn {
   from { opacity: 0; transform: translateY(24px); }
@@ -218,7 +227,7 @@ img { display: block; max-width: 100%; }
   to { opacity: 1; transform: scale(1); }
 }
 
-/* ---------------- background (grid + orbs) ---------------- */
+
 .bg-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .bg-deco .grid {
   position: absolute; inset: 0;
@@ -238,9 +247,7 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(180deg, rgba(10, 15, 30, 0) 55%, var(--bg) 100%);
 }
 
-/* ============================================================
-   PAYMENT MODAL
-   ============================================================ */
+
 .pay-modal {
   position: fixed; inset: 0; z-index: 350;
   display: flex; align-items: center; justify-content: center;
@@ -336,7 +343,7 @@ img { display: block; max-width: 100%; }
 .pay-method .pic .ic { width: 18px; height: 18px; }
 .pay-method .pic .method-logo {
   width: 22px; height: 22px; object-fit: contain; display: block;
-  /* делаем логотип белым */
+  
   filter: grayscale(1) brightness(0) invert(1);
   opacity: .95;
 }
@@ -401,9 +408,7 @@ body.pay-open { overflow: hidden; }
 #key-err.ok { color: var(--ok); }
 .pay-box .auth-submit { margin-top: 16px; }
 
-/* ============================================================
-   AUTH PAGES (login / register)
-   ============================================================ */
+
 .auth-page { position: relative; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 .auth-main {
   position: relative; z-index: 5; flex: 1;
@@ -491,9 +496,7 @@ body.pay-open { overflow: hidden; }
 
 .auth-switch { margin-top: 20px; font-size: 13px; font-weight: 500; color: var(--w50); }
 .auth-switch a { color: var(--accent); font-weight: 600; }
-.auth-hint { margin-top: 16px; font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--w40); }
 
-/* правая часть auth — инфо-карточка */
 .auth-aside {
   position: relative;
   background: var(--glass);
@@ -519,9 +522,7 @@ body.pay-open { overflow: hidden; }
 }
 .auth-aside li .ic { width: 15px; height: 15px; flex: none; color: var(--accent); }
 
-/* ============================================================
-   POLICIES OVERLAY (injected by app.js)
-   ============================================================ */
+
 .policies {
   position: fixed; inset: 0; z-index: 300;
   overflow-y: auto; overscroll-behavior: contain;
@@ -610,7 +611,7 @@ body.pay-open { overflow: hidden; }
 .pol-card p { margin-top: 26px; font-size: 15px; font-weight: 400; line-height: 1.65; color: var(--w70); }
 body.policies-open { overflow: hidden; }
 
-/* ---------------- responsive ---------------- */
+
 @media (max-width: 1150px) {
   .site-header { gap: 14px; }
   .site-header nav { gap: 14px; }
@@ -629,7 +630,7 @@ body.policies-open { overflow: hidden; }
   .pol-close { top: 18px; right: 18px; }
 }
 
-/* ===== ??????? ???????? ???? (#log) ===== */
+
 .log-sec { max-width: 1000px; margin: 0 auto; padding: 120px 24px 70px; min-height: calc(100vh - 60px); }
 .log-gate { max-width: 440px; margin: 70px auto; padding: 30px; }
 .log-gate[hidden] { display: none !important; }
@@ -656,7 +657,7 @@ body.policies-open { overflow: hidden; }
   </style>
   <style>
 
-    /* ---------- cabinet ---------- */
+    
     .cab {
       position: relative; min-height: 100vh; overflow: hidden;
       padding: 140px 0 70px;
@@ -695,7 +696,7 @@ body.policies-open { overflow: hidden; }
     }
     .card > .ttl .ic { width: 14px; height: 14px; color: var(--accent); }
 
-    /* profile */
+    
     .prof-top { display: flex; align-items: center; gap: 18px; margin-top: 24px; }
     .avatar {
       width: 64px; height: 64px; flex: none;
@@ -717,7 +718,7 @@ body.policies-open { overflow: hidden; }
     .kv .v { font-size: 13px; font-weight: 600; color: #fff; text-align: right; word-break: break-all; }
     .kv .v.mono { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; letter-spacing: .03em; }
 
-    /* subscription */
+    
     .sub-name { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
     .sub-name .ic { width: 22px; height: 22px; color: var(--accent); flex: none; }
     .sub-name b { font-size: 24px; font-weight: 600; color: #fff; }
@@ -732,7 +733,7 @@ body.policies-open { overflow: hidden; }
     .sub-meta .v.warn { color: var(--danger); }
     .sub-actions { display: flex; gap: 12px; margin-top: 26px; }
 
-    /* device */
+    
     .hwid-box {
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
       margin-top: 24px; padding: 15px 16px;
@@ -754,7 +755,7 @@ body.policies-open { overflow: hidden; }
     .hwid-box .pending { color: var(--w40); font-family: inherit; letter-spacing: normal; font-weight: 500; }
     .dev-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
 
-    /* launcher */
+    
     .launch { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .launch .lt b { display: block; font-size: 18px; font-weight: 600; color: #fff; }
     .launch .lt p { margin-top: 11px; font-size: 14px; font-weight: 500; color: var(--w50); }
@@ -770,14 +771,14 @@ body.policies-open { overflow: hidden; }
   
   </style>
   <style>
-    /* ---------- background waves ---------- */
+    
     .waves {
       position: absolute; pointer-events: none; border-radius: 50%;
       background: radial-gradient(closest-side, rgba(102, 135, 247, 0.16), transparent 70%);
       filter: blur(10px);
     }
 
-    /* ---------- hero ---------- */
+    
     .hero {
       position: relative; width: 100%;
       min-height: 100vh;
@@ -826,7 +827,7 @@ body.policies-open { overflow: hidden; }
     }
     .hero-inner .actions { margin-top: 46px; display: flex; flex-wrap: wrap; gap: 17px; justify-content: center; }
 
-    /* ---------- sections ---------- */
+    
     .section-head { text-align: center; position: relative; z-index: 5; max-width: 640px; margin: 0 auto; }
     .section-head .eyebrow { display: block; font-size: 15px; font-weight: 600; color: var(--accent); }
     .section-head h2 { margin-top: 13px; font-size: clamp(32px, 4vw, 50px); font-weight: 600; line-height: 1.16; color: #fff; }
@@ -892,7 +893,7 @@ body.policies-open { overflow: hidden; }
     .why-blurb h4 { font-size: 20px; font-weight: 600; color: #fff; }
     .why-blurb p { margin-top: 12px; font-size: 14px; font-weight: 500; line-height: 1.5; color: rgba(255, 255, 255, 0.75); }
 
-    /* ---------- pricing ---------- */
+    
     .plans { position: relative; padding: 160px 0 0; }
     .plans-grid {
       margin-top: 56px;
@@ -951,7 +952,7 @@ body.policies-open { overflow: hidden; }
     .plan-card.hwid .hwid-buy span { font-size: 15px; font-weight: 500; letter-spacing: -0.02em; color: #fff; }
     .plan-card.hwid .hwid-buy .ic { width: 10px; height: 10px; color: #fff; }
 
-    /* ---------- CTA ---------- */
+    
     .cta {
       position: relative; width: 100%; max-width: 851px; min-height: 400px;
       margin: 120px auto 0;
@@ -970,7 +971,7 @@ body.policies-open { overflow: hidden; }
     .cta p { position: relative; margin: 29px auto 0; max-width: 468px; font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--w70); }
     .cta .actions { position: relative; margin-top: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 21px; }
 
-    /* ---------- footer ---------- */
+    
     .site-footer { position: relative; width: 100%; max-width: 1316px; margin: 90px auto 0; padding: 0 40px 40px; }
     .site-footer .top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
     .site-footer .brand-logo b { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #fff; }
@@ -998,10 +999,10 @@ body.policies-open { overflow: hidden; }
       letter-spacing: -0.02em;
     }
 
-    /* ---------- language switch ---------- */
+    
     [hidden] { display: none !important; }
 
-    /* ---------- responsive ---------- */
+    
     @media (max-width: 1280px) {
       .plans-grid { grid-template-columns: repeat(2, 1fr); }
       .plan-card { min-height: 0; }
@@ -1021,11 +1022,9 @@ body.policies-open { overflow: hidden; }
   </style>
 
   <style>
-    /* ============================================================
-       PRICING WINDOW (#view-plans) + LIQUID GLASS
-       ============================================================ */
+    
 
-    /* ---------- окно прайсов ---------- */
+    
     .plans-page {
       position: relative;
       min-height: 100vh;
@@ -1055,9 +1054,7 @@ body.policies-open { overflow: hidden; }
     .pstep h4 { margin-top: 18px; font-size: 17px; font-weight: 600; color: #fff; }
     .pstep p { margin-top: 12px; font-size: 14px; font-weight: 500; line-height: 1.55; color: var(--w50); }
 
-    /* ============================================================
-       LIQUID GLASS — общая обработка поверхностей
-       ============================================================ */
+    
     .site-header,
     .glass,
     .why-card,
@@ -1096,7 +1093,7 @@ body.policies-open { overflow: hidden; }
         0 30px 64px -34px rgba(0, 0, 0, 0.95);
     }
 
-    /* «жидкий» блик, следящий за курсором */
+    
     .why-card::after,
     .why-blurb::after,
     .plan-card::after,
@@ -1129,7 +1126,7 @@ body.policies-open { overflow: hidden; }
         0 34px 70px -34px rgba(0, 0, 0, 0.95);
     }
 
-    /* кнопки — стеклянный глянец */
+    
     .btn-primary,
     .plan-card .buy,
     .plan-card.hwid .hwid-buy,
@@ -1161,7 +1158,7 @@ body.policies-open { overflow: hidden; }
       color: #fff;
     }
 
-    /* поля ввода — стекло */
+    
     .a-field .box, .key-input, .log-pass-row input, .terms input {
       background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
       border: 1px solid rgba(255, 255, 255, 0.13);
@@ -1174,7 +1171,7 @@ body.policies-open { overflow: hidden; }
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 3px rgba(102, 135, 247, 0.16);
     }
 
-    /* табы — жидкое стекло */
+    
     .pol-tabs {
       background-color: rgba(255, 255, 255, 0.045);
       background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
@@ -1200,7 +1197,7 @@ body.policies-open { overflow: hidden; }
       transform: translateY(-1px);
     }
 
-    /* переключатель языка — стеклянная капсула */
+    
     .lang-btn {
       background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.02));
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1213,7 +1210,7 @@ body.policies-open { overflow: hidden; }
       box-shadow: 0 8px 20px rgba(102, 135, 247, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
 
-    /* панели секций и мелкие стеклянные детали */
+    
     .pay-plan, .pay-method, .hwid-box, .pay-crypto-note, .toast, .avatar, .a-field .box {
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
@@ -1245,11 +1242,7 @@ body.policies-open { overflow: hidden; }
     }
     .section-head h2, .section-head .eyebrow { text-shadow: 0 2px 24px rgba(102, 135, 247, 0.35); }
 
-    /* секция увеличивается при наведении.
-       Используем отдельные свойства scale/translate — в отличие от transform,
-       они НЕ перебиваются анимацией .reveal (animation: ... forwards),
-       поэтому скейл реально работает.
-       Карточки секции Why (описания) — без скейла. */
+    
     .plan-card, .cab-grid .card, .pstep {
       scale: 1;
       translate: 0 0;
@@ -1269,7 +1262,21 @@ body.policies-open { overflow: hidden; }
       translate: 0 -8px;
       z-index: 6;
     }
-    /* HWID — едва заметное увеличение */
+    
+    .cab-grid .card.launch {
+      scale: 1;
+      translate: 0 0;
+    }
+    .cab-grid .card.launch:hover {
+      scale: 1;
+      translate: 0 0;
+      border-color: rgba(168, 194, 255, 0.45);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 0 44px rgba(102, 135, 247, 0.12),
+        0 40px 78px -34px rgba(0, 0, 0, 0.95);
+    }
+    
     .plan-card.hwid {
       scale: 1;
       translate: 0 0;
@@ -1349,7 +1356,7 @@ body.policies-open { overflow: hidden; }
   </header>
 <div class="view" id="view-home">
 
-  <!-- HERO -->
+  
   <section class="hero" id="top">
     <div class="hero-bg">
       <div class="grid"></div>
@@ -1383,7 +1390,7 @@ body.policies-open { overflow: hidden; }
     </div>
   </section>
 
-  <!-- WHY -->
+  
   <section class="why" id="why">
     <div class="wrap">
       <div class="section-head reveal">
@@ -1457,7 +1464,7 @@ body.policies-open { overflow: hidden; }
     </div>
   </section>
 
-  <!-- FOOTER -->
+  
   <footer class="site-footer reveal">
     <div class="top">
       <div>
@@ -1509,7 +1516,7 @@ body.policies-open { overflow: hidden; }
       <div class="grad"></div>
     </div>
 
-  <!-- PLANS -->
+  
   <section class="plans" id="plans">
     <div class="wrap">
       <div class="section-head reveal">
@@ -1601,7 +1608,7 @@ body.policies-open { overflow: hidden; }
   </section>
 
 
-  <!-- FOOTER -->
+  
   <footer class="site-footer reveal">
     <div class="top">
       <div>
@@ -1688,7 +1695,6 @@ body.policies-open { overflow: hidden; }
               <span data-i18n="auth.switch.login">Already have an account?</span>
               <a href="#register" data-i18n="nav.register">Register</a>
             </p>
-            <p class="auth-hint" data-i18n="auth.hint"></p>
           </form>
         </div>
 
@@ -1771,7 +1777,6 @@ body.policies-open { overflow: hidden; }
               <span data-i18n="auth.switch.reg">Do not have an account yet?</span>
               <a href="#login" data-i18n="nav.login">Sign in</a>
             </p>
-            <p class="auth-hint" data-i18n="auth.hint"></p>
           </form>
         </div>
 
@@ -1803,7 +1808,7 @@ body.policies-open { overflow: hidden; }
     </div>
 
     <div class="cab-grid">
-      <!-- PROFILE -->
+      
       <section class="card">
         <span class="ttl">
           <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="7.6" r="4"/><path d="M4 20.5C4 16.4 7.6 13.4 12 13.4s8 3 8 7.1v.5H4z"/></svg></span>
@@ -1822,7 +1827,7 @@ body.policies-open { overflow: hidden; }
         </div>
       </section>
 
-      <!-- SUBSCRIPTION -->
+      
       <section class="card" id="sub-card">
         <span class="ttl">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
@@ -1870,7 +1875,7 @@ body.policies-open { overflow: hidden; }
         </div>
       </section>
 
-      <!-- DEVICE -->
+      
       <section class="card">
         <span class="ttl">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
@@ -1891,7 +1896,7 @@ body.policies-open { overflow: hidden; }
         </div>
       </section>
 
-      <!-- LAUNCHER -->
+      
       <section class="card launch">
         <div class="lt">
           <b data-i18n="cab.launcher">Gallium Launcher</b>
@@ -1941,24 +1946,14 @@ body.policies-open { overflow: hidden; }
 </section>
 </div>
 <script>
-/* ============================================================
-   Gallium — shared script: i18n, toasts, policies, auth (localStorage)
-   ============================================================ */
+
 (function () {
   'use strict';
 
-  /* ==================== Supabase — глобальная одноразовость ключей ====================
-     Заполните 2 поля:
-       url  — Project URL: кнопка «Connect» в шапке проекта, напр. https://abcdefg.supabase.co
-       anon — ключ из «Project Settings (шестерёнка) → API Keys»:
-              publishable (sb_publishable_...) или anon (eyJ...)
-     Пустые поля = ключи проверяются только локально (как раньше).
-     SQL-схема лежит в setup_supabase.sql                                    */
+  
   var SUPA = { url: 'https://lcwjoeyeeyibxbxgjhnp.supabase.co', anon: 'sb_publishable_OV0nhg5WPaeRAgi0im1Z5g_x65vJ6zy' };
 
-  /* HWID приходит из лаунчера: site/?hwid=XXXX#cabinet — ключ с такого
-     перехода привязывается к компьютеру, а лаунчер видит это через check_hwid.
-     Запоминается в localStorage, чтобы активация работала и в других вкладках. */
+  
   var HWID_PARAM = (function () {
     var p = '';
     try { p = new URLSearchParams(location.search).get('hwid') || ''; } catch (e) {}
@@ -1966,7 +1961,7 @@ body.policies-open { overflow: hidden; }
     try { return localStorage.getItem('gallium_hwid') || ''; } catch (e) { return ''; }
   })();
 
-  /* ==================== i18n ==================== */
+  
   var I18N = {
     en: {
       'title': 'Gallium - Play without limits.',
@@ -2068,7 +2063,7 @@ body.policies-open { overflow: hidden; }
       'pol.terms.3': "We reserve the right to change the client's feature set, release updates and perform maintenance. Users are notified in advance about long maintenance windows.",
       'pol.terms.4': 'The service is provided "as is". We are not responsible for bans on third-party game servers that occur as a result of using the client.',
       'pol.terms.5': 'By continuing to use the service, you agree to these terms and the privacy policy.',
-      /* ---- auth ---- */
+      
       'auth.login.h1': 'Sign in to <span class="serif">Gallium.</span>',
       'auth.login.sub': 'Access your subscription, downloads and account settings.',
       'auth.reg.h1': 'Create your <span class="serif">account.</span>',
@@ -2081,14 +2076,13 @@ body.policies-open { overflow: hidden; }
       'auth.terms': 'I accept the Terms of Service and Privacy Policy',
       'auth.switch.reg': 'Do not have an account yet?',
       'auth.switch.login': 'Already have an account?',
-      'auth.hint': 'Demo authorization: accounts are stored locally in your browser (localStorage). No data is sent anywhere.',
       'auth.aside.h3': 'One account — <em>all the features.</em>',
       'auth.aside.p': 'After registering you get access to the dashboard: subscription, HWID and downloads.',
       'auth.b1': 'Full access to every feature',
       'auth.b2': 'All client updates and new features',
       'auth.b3': 'Device binding and account protection',
       'auth.b4': 'Priority 24/7 support',
-      /* ---- cabinet ---- */
+      
       'cab.eyebrow': '⟡ DASHBOARD ⟡',
       'cab.h1': 'Welcome back,',
       'cab.sub': 'Manage your subscription, account data and downloads.',
@@ -2210,7 +2204,7 @@ body.policies-open { overflow: hidden; }
       'pol.terms.3': 'Мы оставляем за собой право изменять состав функций клиента, выпускать обновления и проводить технические работы. О длительных технических работах пользователи уведомляются заранее.',
       'pol.terms.4': 'Сервис предоставляется «как есть». Мы не несём ответственности за блокировки на сторонних игровых серверах, наступившие в результате использования клиента.',
       'pol.terms.5': 'Продолжая использовать сервис, вы соглашаетесь с настоящими условиями и политикой конфиденциальности.',
-      /* ---- auth ---- */
+      
       'auth.login.h1': 'С возвращением в <span class="serif">Gallium.</span>',
       'auth.login.sub': 'Войдите, чтобы управлять подпиской, загрузками и настройками аккаунта.',
       'auth.reg.h1': 'Создайте свой <span class="serif">аккаунт.</span>',
@@ -2223,14 +2217,13 @@ body.policies-open { overflow: hidden; }
       'auth.terms': 'Я принимаю условия использования и политику конфиденциальности',
       'auth.switch.reg': 'Ещё нет аккаунта?',
       'auth.switch.login': 'Уже есть аккаунт?',
-      'auth.hint': 'Демо-авторизация: аккаунты хранятся локально в вашем браузере (localStorage). Данные никуда не отправляются.',
       'auth.aside.h3': 'Один аккаунт — <em>все возможности.</em>',
       'auth.aside.p': 'После регистрации вы получите доступ к кабинету: подписка, HWID и загрузки.',
       'auth.b1': 'Полный доступ ко всем функциям',
       'auth.b2': 'Все обновления и новые возможности клиента',
       'auth.b3': 'Привязка устройства и защита аккаунта',
       'auth.b4': 'Приоритетная поддержка 24/7',
-      /* ---- cabinet ---- */
+      
       'cab.eyebrow': '⟡ ЛИЧНЫЙ КАБИНЕТ ⟡',
       'cab.h1': 'С возвращением,',
       'cab.sub': 'Управляйте подпиской, данными аккаунта и загрузками.',
@@ -2263,7 +2256,7 @@ body.policies-open { overflow: hidden; }
     return I18N.en[key] != null ? I18N.en[key] : key;
   }
 
-  /* положение пилюли под активной кнопкой языка */
+  
   function positionLangPill(instant) {
     var box = document.querySelector('.lang-btn');
     if (!box) return;
@@ -2282,14 +2275,13 @@ body.policies-open { overflow: hidden; }
     }
   }
 
-  /* мягкая смена текста при переключении языка: только видимые элементы,
-     каскад по порядку. Через WAAPI, чтобы не перетирать CSS-анимации (.reveal и т.п.) */
+  
   function animateLangSwap() {
     if (!document.body || !document.body.animate) return;
     var els = [];
     document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(function (el) {
       if (!el.getClientRects().length) return;
-      // элементы, ещё не показанные скролл-анимацией, не трогаем — иначе мигнут
+      
       if (el.classList.contains('reveal') && !el.classList.contains('in')) return;
       els.push(el);
     });
@@ -2325,6 +2317,10 @@ body.policies-open { overflow: hidden; }
     document.documentElement.lang = lang;
     var titleKey = document.documentElement.getAttribute('data-title-key') || 'title';
     document.title = T(titleKey);
+    
+    var hdr = document.querySelector('.site-header');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var w0 = (animate && hdr && hdr.getBoundingClientRect) ? hdr.getBoundingClientRect().width : 0;
     document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = T(el.getAttribute('data-i18n')); });
     document.querySelectorAll('[data-i18n-html]').forEach(function (el) { el.innerHTML = T(el.getAttribute('data-i18n-html')); });
     document.querySelectorAll('[data-i18n-ph]').forEach(function (el) { el.setAttribute('placeholder', T(el.getAttribute('data-i18n-ph'))); });
@@ -2343,10 +2339,29 @@ body.policies-open { overflow: hidden; }
     }
     syncAuthUI();
     if (typeof window.__onLang === 'function') { try { window.__onLang(); } catch (e) {} }
+    
+    if (animate && hdr && hdr.animate && !reduce) {
+      try {
+        var w1 = hdr.getBoundingClientRect().width;
+        if (w0 && Math.abs(w1 - w0) > 1) {
+          hdr.animate(
+            [{ width: w0 + 'px' }, { width: w1 + 'px' }],
+            { duration: 560, easing: 'cubic-bezier(.2, .8, .2, 1)' }
+          );
+          var nav = hdr.querySelector('nav');
+          if (nav && nav.animate) {
+            nav.animate(
+              [{ transform: 'scale(.97)', opacity: .65 }, { transform: 'scale(1)', opacity: 1 }],
+              { duration: 520, easing: 'cubic-bezier(.2, .8, .2, 1)' }
+            );
+          }
+        }
+      } catch (e) {}
+    }
     if (animate) animateLangSwap();
   }
 
-  /* ==================== toast ==================== */
+  
   var toastWrap = null;
   function toast(msg, kind) {
     if (!toastWrap) {
@@ -2364,7 +2379,7 @@ body.policies-open { overflow: hidden; }
     }, 3200);
   }
 
-  /* ==================== auth (localStorage) ==================== */
+  
   var UKEY = 'gallium_users', SKEY = 'gallium_session';
 
   function readUsers() {
@@ -2393,7 +2408,7 @@ body.policies-open { overflow: hidden; }
     return p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + d.getFullYear() + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
   }
 
-  /* ==================== activation keys ==================== */
+  
   var KEY_AL = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   var KEY_SALT = 'gallium.key.v1';
   var KUSE = 'gallium_used_keys';
@@ -2435,7 +2450,7 @@ body.policies-open { overflow: hidden; }
     list.push(user); writeUsers(list);
   }
 
-  /* бизнес-правила — ДО сжигания ключа в базе */
+  
   function keyRuleErr(u, m) {
     if (m[1] === 'HWID') return u.hwid ? null : T('key.err.nohwid');
     if (u.plan === 'life') return T('key.err.life');
@@ -2515,7 +2530,7 @@ body.policies-open { overflow: hidden; }
       saveUser(user);
       return user;
     },
-    /* HWID is bound only after the loader is downloaded and launched */
+    
     bindHwid: function (hwid) {
       var user = Auth.me();
       if (!user || !hwid) return null;
@@ -2530,9 +2545,7 @@ body.policies-open { overflow: hidden; }
       saveUser(user);
       return user;
     },
-    /* возвращает Promise<{ok, msg}>; при настроенном SUPA ключ сгорает
-       глобально — повторный ввод с любого устройства невозможен.
-       hwid — HWID из модалки (если лаунчер-параметр отсутствует) */
+    
     redeemKey: function (raw, hwid) {
       var k = String(raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
       var m = /^GAL(30D|90D|365D|LIFE|HWID)([A-Z2-9]{6})([A-Z2-9]{5})$/.exec(k);
@@ -2588,7 +2601,7 @@ body.policies-open { overflow: hidden; }
     });
   }
 
-  /* ==================== policies (injected) ==================== */
+  
   var POLICIES_HTML = '' +
   '<div class="policies" id="policies" hidden>' +
     '<button class="pol-close" id="policies-close" aria-label="Close">' +
@@ -2679,7 +2692,7 @@ body.policies-open { overflow: hidden; }
     });
   }
 
-  /* ==================== payment modal ==================== */
+  
   var PAY_FUNPAY = 'https://funpay.com/users/13221213/';
   var payWrap = null, payPlan = null;
 
@@ -2791,7 +2804,7 @@ body.policies-open { overflow: hidden; }
     document.body.classList.add('pay-open');
   }
 
-  /* ==================== key modal ==================== */
+  
   var keyWrap = null;
 
   var KEY_HTML = '' +
@@ -2911,7 +2924,7 @@ body.policies-open { overflow: hidden; }
     setTimeout(function () { input.focus(); }, 60);
   }
 
-  /* ==================== global click handlers ==================== */
+  
   function initHandlers() {
     document.addEventListener('click', function (e) {
       var el = e.target.closest && e.target.closest('[data-toast-key]');
@@ -2958,7 +2971,7 @@ body.policies-open { overflow: hidden; }
     });
   }
 
-  /* ==================== Лог входов в лаунчер (#log) ==================== */
+  
   var LOG_PASS = 'gallium2026';
 
   function logEsc(s) {
@@ -3020,7 +3033,7 @@ body.policies-open { overflow: hidden; }
   }
   window.__logRender = logRender;
 
-  /* ==================== boot ==================== */
+  
   initPolicies();
   initPay();
   initKey();
@@ -3028,7 +3041,7 @@ body.policies-open { overflow: hidden; }
   initLog();
   applyLang(LANG);
 
-  /* пилюля языка: пересчёт при ресайзе и после загрузки шрифтов (ширина кнопок меняется) */
+  
   window.addEventListener('resize', function () { positionLangPill(true); });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { positionLangPill(true); }).catch(function () {});
@@ -3045,7 +3058,7 @@ body.policies-open { overflow: hidden; }
 (function () {
       'use strict';
 
-      /* ---- scroll reveal ---- */
+      
       var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
       var io = 'IntersectionObserver' in window
         ? new IntersectionObserver(function (entries) {
@@ -3059,12 +3072,11 @@ body.policies-open { overflow: hidden; }
         if (io) io.observe(el); else el.classList.add('in');
       });
 
-      /* ---- active header item on scroll ---- */
+      
       var sections = ['top', 'why', 'plans'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
       var navLinks = Array.prototype.slice.call(document.querySelectorAll('.site-header nav a'));
       function syncNav() {
-        /* в видимом окне может быть только одна секция-разделитель;
-           элементы в скрытых view дают offsetTop = 0 — фильтруем их */
+        
         var live = sections.filter(function (s) { return s.offsetParent !== null; });
         var y = window.scrollY + 160;
         var cur = live.length ? live[0].id : '';
@@ -3078,7 +3090,7 @@ body.policies-open { overflow: hidden; }
       window.addEventListener('scroll', syncNav, { passive: true });
       syncNav();
 
-      /* ---- liquid glass: блик следует за курсором ---- */
+      
       var LG_SEL = '.why-card, .why-blurb, .plan-card, .cab-grid .card, .pol-card, .glass, .pstep';
       var lgRaf = 0, lgEv = null;
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
