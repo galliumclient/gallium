@@ -2004,9 +2004,6 @@ body.policies-open { overflow: hidden; }
       'key.err.used': 'This key has already been used',
       'key.err.life': 'You already have LIFETIME',
       'key.err.nohwid': 'No device is bound to your account',
-      'key.err.hwid': 'Paste the HWID shown in the launcher window',
-      'key.hwid.ph': 'HWID from the launcher (required)',
-      'key.hwid.ok': 'Device binding:',
       'key.err.offline': 'Could not verify the key - check your internet connection',
       'key.ok': 'Key activated successfully',
       'toast.demo': 'Demo mode: this feature will work after the backend is connected',
@@ -2145,9 +2142,6 @@ body.policies-open { overflow: hidden; }
       'key.err.used': 'Этот ключ уже был использован',
       'key.err.life': 'У вас уже есть LIFETIME',
       'key.err.nohwid': 'К вашему аккаунту не привязано устройство',
-      'key.err.hwid': 'Вставьте HWID из окна лаунчера',
-      'key.hwid.ph': 'HWID из лаунчера (обязательно)',
-      'key.hwid.ok': 'Привязка к ПК:',
       'key.err.offline': 'Не удалось проверить ключ — проверьте подключение к интернету',
       'key.ok': 'Ключ успешно активирован',
       'toast.demo': 'Демо-режим: функция заработает после подключения бэкенда',
@@ -2821,8 +2815,6 @@ body.policies-open { overflow: hidden; }
       '<h3 data-i18n="key.title">Activate key</h3>' +
       '<p class="pay-sub" data-i18n="key.sub">Enter the activation key you received after purchase.</p>' +
       '<input type="text" id="key-input" class="key-input" data-i18n-ph="key.ph" placeholder="GAL-XXXXXX-XXXXXX-XXXXX" autocomplete="off" spellcheck="false" />' +
-      '<div class="pay-sub" id="key-hwid-ok" hidden><span data-i18n="key.hwid.ok">Device binding:</span> <span id="key-hwid-val"></span></div>' +
-      '<input type="text" id="key-hwid" class="key-input" data-i18n-ph="key.hwid.ph" placeholder="HWID from the launcher (required)" autocomplete="off" spellcheck="false" hidden />' +
       '<div class="form-error" id="key-err"></div>' +
       '<button type="button" class="auth-submit" id="key-apply">' +
         '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span>' +
@@ -2843,8 +2835,6 @@ body.policies-open { overflow: hidden; }
     function closeKey() {
       document.body.classList.remove('pay-open');
       input.value = '';
-      var hwEl = document.getElementById('key-hwid');
-      if (hwEl) hwEl.value = '';
       err.textContent = '';
       err.classList.remove('show', 'ok');
       keyWrap.classList.add('closing');
@@ -2872,14 +2862,7 @@ body.policies-open { overflow: hidden; }
       if (btn.disabled) return;
       btn.disabled = true;
       err.classList.remove('show', 'ok');
-      var hwEl = document.getElementById('key-hwid');
-      var hw = HWID_PARAM || (hwEl && !hwEl.hidden ? hwEl.value.trim() : '');
-      if (!hw) {
-        btn.disabled = false;
-        show({ ok: false, msg: T('key.err.hwid') });
-        if (hwEl && !hwEl.hidden) hwEl.focus();
-        return;
-      }
+      var hw = HWID_PARAM || '';
       Auth.redeemKey(input.value, hw).then(function (res) {
         btn.disabled = false;
         show(res);
@@ -2889,8 +2872,6 @@ body.policies-open { overflow: hidden; }
     document.getElementById('key-apply').addEventListener('click', apply);
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); apply(); } });
     input.addEventListener('input', function () { err.classList.remove('show'); });
-    var hwInit = document.getElementById('key-hwid');
-    if (hwInit) hwInit.addEventListener('input', function () { err.classList.remove('show'); });
     keyWrap.addEventListener('click', function (e) {
       if (e.target.closest('[data-key-close]')) closeKey();
     });
@@ -2907,16 +2888,9 @@ body.policies-open { overflow: hidden; }
     if (!Auth.me()) { toast(T('toast.needauth'), 'err'); return; }
     var input = document.getElementById('key-input');
     var err = document.getElementById('key-err');
-    var hwEl = document.getElementById('key-hwid');
-    var hwOk = document.getElementById('key-hwid-ok');
     input.value = '';
     err.textContent = '';
     err.classList.remove('show', 'ok');
-    if (hwEl) { hwEl.value = ''; hwEl.hidden = !!HWID_PARAM; }
-    if (hwOk) {
-      hwOk.hidden = !HWID_PARAM;
-      if (HWID_PARAM) document.getElementById('key-hwid-val').textContent = HWID_PARAM;
-    }
     payWrap.hidden = true;
     keyWrap.classList.remove('closing');
     keyWrap.hidden = false;
